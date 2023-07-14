@@ -3,17 +3,11 @@
 //
 #include <fstream>
 #include "BitcoinExchange.hpp"
-#include "DataControl.hpp"
-#include "InputControl.hpp"
 
 int main(int argc, char **argv){
     try {
-        if(argc == 2){
-            DataControl d1("data.csv");
-//            d1.printData();
-            InputControl i1(argv[1]);
-//            i1.printInput();
-            i1.errorCase();
+        if(argc == 2) {
+            BitcoinExchange b ("data.csv", argv[1]);
         }
         else
             throw BitcoinExchange::NoInputException();
@@ -21,16 +15,4 @@ int main(int argc, char **argv){
     catch (std::exception &e) {
         std::cout << e.what() << endl;
     }
-
-//    d1.printData();
 }
-
-//    string myText;
-//    std::ifstream myFile;
-//    myFile.open(argv[1]);
-//
-//    while (getline (myFile, myText)) {
-//        cout << myText << endl;
-//    }
-//
-//    myFile.close();

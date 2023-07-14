@@ -1,5 +1,5 @@
 NAME = btc
-SRC = main.cpp BitcoinExchange.cpp DataControl.cpp InputControl.cpp
+SRC = main.cpp BitcoinExchange.cpp
 CC = c++
 CPPFLAGS = -Wall -std=c++98 #-Wextra -Werror
 RM = rm -rf
