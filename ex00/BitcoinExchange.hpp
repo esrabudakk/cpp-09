@@ -49,10 +49,10 @@ public:
 //    class BadInputException : public std::exception {
 //    private:
 //        std::string errorMessage;
-//
+
 //    public:
 //        BadInputException(const std::string& line) : errorMessage("Error: bad input => " + line) {}
-//
+
 //        const char* what() const throw() {
 //            return errorMessage.c_str();
 //        }

@@ -1,9 +1,10 @@
 //
-// Created by ebudak on 7/14/23.
+// Created by Esra Budak on 7/15/23.
 //
 
-#ifndef CPP09_RPN_HPP
-#define CPP09_RPN_HPP
+#ifndef CPP_09_PMERGEME_HPP
+#define CPP_09_PMERGEME_HPP
+
 
 #include <iostream>
 #include "stack"
@@ -13,17 +14,15 @@ using std::endl;
 using std::cout;
 using std::string;
 
-class RPN {
+class PMergeMe {
 private:
     std::stack<string> inputStack;
 
 public:
-    RPN();
-    ~RPN();
-    RPN(const RPN &src);
-    RPN operator=(const RPN &src);
-    RPN(const string &input);
-    void printStack();
+    PMergeMe();
+    ~PMergeMe();
+    PMergeMe(const PMergeMe &src);
+    PMergeMe operator=(const PMergeMe &src);
 
     class NoInputException : public std::exception {
         const char *what() const throw() {
@@ -37,5 +36,4 @@ public:
     };
 };
 
-
-#endif //CPP09_RPN_HPP
+#endif //CPP_09_PMERGEME_HPP
