@@ -9,20 +9,23 @@
 #include <iostream>
 #include "stack"
 #include <cstring>
-
+#include "vector"
+#include "list"
 using std::endl;
 using std::cout;
 using std::string;
 
 class PMergeMe {
 private:
-    std::stack<string> inputStack;
-
+    std::vector<int> inputVector;
+    std::list<int> inputList;
 public:
     PMergeMe();
     ~PMergeMe();
     PMergeMe(const PMergeMe &src);
     PMergeMe operator=(const PMergeMe &src);
+    PMergeMe(int argc, char **argv);
+    void sortContainer();
 
     class NoInputException : public std::exception {
         const char *what() const throw() {
