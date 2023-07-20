@@ -11,6 +11,8 @@
 #include <cstring>
 #include "vector"
 #include "list"
+#include <cmath>
+#include <ctime>
 using std::endl;
 using std::cout;
 using std::string;
@@ -25,7 +27,13 @@ public:
     PMergeMe(const PMergeMe &src);
     PMergeMe operator=(const PMergeMe &src);
     PMergeMe(int argc, char **argv);
-    void sortContainer();
+    // void sortContainer();
+    std::vector<int> mergeInsertSortVector(std::vector<int> &tempVector);
+    std::vector<int> mergeVector(std::vector<int>& left,  std::vector<int>& right);
+    std::list<int> mergeInsertSortList(std::list<int>& tempList);
+    std::list<int> mergeList(std::list<int>& left,  std::list<int>& right);
+    void printList();
+    void printVector();
 
     class NoInputException : public std::exception {
         const char *what() const throw() {
