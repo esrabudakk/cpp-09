@@ -21,8 +21,6 @@ using std::string;
 class BitcoinExchange {
 private:
     std::map<string, float> dataMap;
-    std::vector<std::string> inputVector;
-
 
 public:
     BitcoinExchange();
@@ -31,9 +29,9 @@ public:
     BitcoinExchange(const BitcoinExchange &src);
     BitcoinExchange &operator=(const BitcoinExchange &src);
     void printData();
-    void printInput();
     void errorCase(const string &line);
     void takeRate(const string &line);
+    std::string invalidDateCheck(const std::string &date) ;
 
     class NoInputException : public std::exception {
         const char *what() const throw() {
@@ -46,17 +44,6 @@ public:
             return "Error: not a positive number.";
         }
     };
-//    class BadInputException : public std::exception {
-//    private:
-//        std::string errorMessage;
-
-//    public:
-//        BadInputException(const std::string& line) : errorMessage("Error: bad input => " + line) {}
-
-//        const char* what() const throw() {
-//            return errorMessage.c_str();
-//        }
-//    };
 
     class TooLargeNumberException : public std::exception {
         const char *what() const throw() {

@@ -6,6 +6,7 @@
 BitcoinExchange::BitcoinExchange() {
 
 }
+
 BitcoinExchange::BitcoinExchange(const string &data, const string &input) {
     std::ifstream dataFile(data.c_str());
 
@@ -23,7 +24,6 @@ BitcoinExchange::BitcoinExchange(const string &data, const string &input) {
             std::istringstream(valueStr) >> exchange_rate;  // <--- std::istringstream kullanımı
             dataMap[date] = exchange_rate;
         }
-
         dataFile.close();
     } else {
         std::cout << "Failed to open the file." << std::endl;
@@ -42,8 +42,6 @@ BitcoinExchange::BitcoinExchange(const string &data, const string &input) {
     else {
         std::cout << "Failed to open the file." << std::endl;
     }
-
-
 }
 BitcoinExchange::~BitcoinExchange() {
 
@@ -65,23 +63,45 @@ void BitcoinExchange::printData() {
     }
 }
 
-void BitcoinExchange::printInput() {
-    for (std::vector<std::string>::iterator it = inputVector.begin(); it != inputVector.end(); ++it) {
-        std::cout << *it << std::endl;
+void BitcoinExchange::takeRate(const string &line) {
+    std::string::size_type delimiterPos = line.find('|');
+
+    std::string inputDate = line.substr(0, delimiterPos);
+    std::string inputValue = line.substr(delimiterPos + 1);
+
+    if (dataMap.find(inputDate) != dataMap.end()) {
+        cout << dataMap.find(inputDate)->first << " => " << inputValue << " = " << dataMap.find(inputDate)->second * atof(inputValue.c_str()) << endl;
+    } else {
+        std::map<string, float>::iterator it = dataMap.lower_bound(inputDate);
+        string previousKey;
+        if(it != dataMap.begin()){
+            it--;
+            previousKey = it->first;
+        }
+        cout << inputDate << " => " << inputValue << " = " << dataMap.find(previousKey)->second * atof(inputValue.c_str()) << endl;
     }
 }
 
-void BitcoinExchange::takeRate(const string &line) {
-        std::string::size_type delimiterPos = line.find('|');
-        std::string inputDate = line.substr(0, delimiterPos - 1);
-        std::string inputValue = line.substr(delimiterPos + 1);
+std::string BitcoinExchange::invalidDateCheck(const std::string &date) {
+    if (date.length() != 10)
+        return "Error: invalid date format.";
+    if (date[4] != '-' || date[7] != '-')
+        return "Error: invalid date format.";
 
-        if(dataMap.find(inputDate) != dataMap.end()) {
-            cout << dataMap.find(inputDate)->first << " => " << inputValue << " = " << dataMap.find(inputDate)->second * atof(inputValue.c_str()) << endl;
-        }
-        else if(dataMap.lower_bound(inputDate) != dataMap.end()){
-            cout << dataMap.lower_bound(inputDate)->first << " => " << inputValue << " = " << dataMap.lower_bound(inputDate)->second * atof(inputValue.c_str()) << endl;
-        }
+    int year = atoi(date.substr(0, 4).c_str());
+    int month = atoi(date.substr(5, 2).c_str());
+    int day = atoi(date.substr(8, 2).c_str());
+    int monthLimits[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (year < 2009 || year > 2023)
+        return "Error: Out of range.";
+    if (month < 1 || month > 12)
+        return "Error: invalid date format.";
+    if (day < 1 || day > monthLimits[month - 1])
+        return "Error: invalid date format.";
+    if (year == 2009 && month == 1 && day == 1)
+        return "Error: invalid date format.";
+    return "";
 }
 
 void BitcoinExchange::errorCase(const string &line){
