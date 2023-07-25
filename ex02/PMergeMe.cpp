@@ -72,7 +72,6 @@ void PMergeMe::printVector(){
     }
 }
 
-
 std::vector<int> PMergeMe::mergeInsertSortVector(std::vector<int>& tempVector){
     static int threshold = 4;
     std::vector<int>::iterator it = tempVector.begin();
